@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Tolkien News</title>
+        <link>https://tolkiennews.com/</link>
+        <description>Tolkien news and events from the world of Middle-earth.</description>
+
+        <item>
+            <title>Aragorn's Quest Continues</title>
+            <link>https://tolkiennews.com/aragorns-quest-continues/</link>
+            <description>Aragorn, son of Arathorn, has set out on a new quest to destroy the One Ring. With his trusty sword Anduril by his side, he faces many dangers as he journeys across Middle-earth.</description>
+        </item>
+
+        <item>
+            <title>Gandalf's Return</title>
+            <link>https://tolkiennews.com/gandalfs-return/</link>
+            <description>Gandalf the Grey has returned to Middle-earth after a long absence. He brings with him wisdom and power, as well as a warning of the growing threat of Sauron.</description>
+        </item>
+
+        <item>
+            <title>The Fellowship Reformed</title>
+            <link>https://tolkiennews.com/the-fellowship-reformed/</link>
+            <description>The Fellowship of the Ring has been reformed with new members joining the quest to destroy the One Ring. Frodo, Sam, Merry, and Pippin are once again ready to face the challenges that lie ahead.</description>
+            <pubDate>Fri, 21 Jul 2023 09:04 EDT</pubDate>
+        </item>
+
+        <item>
+            <title>Sauron's Army on the March</title>
+            <link>https://tolkiennews.com/saurons-army-on-the-march/</link>
+            <description>Sauron's armies are on the move, seeking to conquer all of Middle-earth. The Free Peoples of Middle-earth must band together to resist this threat.</description>
+        </item>
+
+        <item>
+            <title>The Council of Elrond</title>
+            <link>https://tolkiennews.com/the-council-of-elrond/</link>
+            <description>In the hidden elven realm of Rivendell, a council is held to discuss the growing threat of Sauron and the quest to destroy the One Ring. Elrond, Gandalf, and other wise leaders gather to plan their next move.</description>
+        </item>
+
+        <item>
+            <title>The Battle of Helm's Deep</title>
+            <link>https://tolkiennews.com/the-battle-of-helms-deep/</link>
+            <description>In the land of Rohan, the armies of Rohan and their allies gather to defend against the forces of Saruman. The battle is fierce and many lives are lost.</description>
+        </item>
+
+    </channel>
+</rss>
