@@ -10,6 +10,7 @@ python = "^3.11"
 pyqt6 = "^6.8.0"
 requests = "^2.32.3"
 rss-parser = "^2.1.0"
+flake8 = "^7.1.1"
 
 
 [build-system]

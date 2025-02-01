@@ -1,20 +1,23 @@
-from datetime import datetime
 import email.utils
 
-from PyQt6.QtCore import QAbstractListModel, QItemSelection, QModelIndex, QObject, QRunnable, QThreadPool, Qt, pyqtSignal, pyqtSlot
-from PyQt6.QtWidgets import QHBoxLayout, QLabel, QLayout, QListView, QMainWindow, QListWidget, QMessageBox, QTextBrowser, QVBoxLayout, QWidget
+from PyQt6.QtCore import (
+    QAbstractListModel, QItemSelection, QObject, QRunnable, Qt, pyqtSignal, pyqtSlot
+)
+from PyQt6.QtWidgets import QHBoxLayout, QLabel, QListView, QMainWindow, QMessageBox, QTextBrowser, QVBoxLayout, QWidget
 import requests
 from rss_parser import RSSParser
 from rss_parser.models import XMLBaseModel
 
+from rss_reader.appcontext import AppContext, FeedProvider
+
 
 class FeedWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, app_context: AppContext, feed_provider: FeedProvider):
         super().__init__()
-        self.thread_pool = QThreadPool()
+        self.app_context = app_context
 
         self.feed_list_model = FeedListModel()
-        self.feed_fetcher = FeedFetcher()
+        self.feed_fetcher = FeedFetcher(feed_provider)
         self.feed_fetcher.signals.result.connect(self.update_feed_list)
         self.feed_fetcher.signals.error.connect(self.show_error_message)
 
@@ -54,10 +57,10 @@ class FeedWindow(QMainWindow):
         self.setMinimumWidth(1000)
         self.setMinimumHeight(600)
 
-    def start(self):
-        self.thread_pool.start(self.feed_fetcher)
+    def show(self):
+        self.app_context.thread_pool.start(self.feed_fetcher)
 
-        self.show()
+        super().show()
 
     @pyqtSlot(XMLBaseModel)
     def update_feed_list(self, rss: XMLBaseModel):
@@ -133,10 +136,14 @@ class FeedFetcher(QRunnable):
 
     signals = Signals()
 
+    def __init__(self, provider: FeedProvider):
+        super().__init__()
+        self.url = provider.url
+
     @pyqtSlot()
     def run(self):
         try:
-            response = requests.get('http://localhost:8001/sample.rss', params={'delay': '0.4'})
+            response = requests.get(self.url)
             if response.status_code != 200:
                 self.signals.error.emit((response.status_code, response.text))
                 return

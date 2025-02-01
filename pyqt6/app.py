@@ -1,12 +1,14 @@
 import sys
 
+from PyQt6.QtCore import QThreadPool
 from PyQt6.QtWidgets import QApplication
+from rss_reader.apploader import LoaderWindow
 
-from rss_reader.feed import FeedWindow
 
 app = QApplication(sys.argv)
 
-window = FeedWindow()
-window.start()
+thread_pool = QThreadPool()
+window = LoaderWindow(thread_pool)
+window.show()
 
 app.exec()
