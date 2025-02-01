@@ -72,7 +72,7 @@ class FeedWindow(QMainWindow):
         code, text = error_tuple
         message_box = QMessageBox()
         message_box.setText(f'Error: [{code}]: {text}')
-        message_box.exec()
+        message_box.open()
 
     @pyqtSlot(QItemSelection)
     def select_feed(self, selected: QItemSelection):

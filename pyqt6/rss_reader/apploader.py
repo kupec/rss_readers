@@ -1,7 +1,7 @@
-from PyQt6.QtCore import QObject, QRunnable, QThreadPool, Qt, pyqtSignal, pyqtSlot
+from PyQt6.QtCore import QObject, QRunnable, QSettings, QThreadPool, Qt, pyqtSignal, pyqtSlot
 from PyQt6.QtWidgets import QLabel, QMainWindow, QMessageBox
 
-from rss_reader.appcontext import AppContext, FeedProvider, Settings
+from rss_reader.appcontext import AppContext, Settings
 from rss_reader.feedproviders import FeedProvidersWindow
 
 
@@ -18,6 +18,7 @@ class LoaderWindow(QMainWindow):
         self.setCentralWidget(self.label)
 
         self.setWindowTitle('rss reader - loader')
+        self.setWindowFlags(Qt.WindowType.SplashScreen)
         self.setMinimumWidth(400)
         self.setMinimumHeight(400)
 
@@ -43,7 +44,7 @@ class LoaderWindow(QMainWindow):
     def show_error_message(self, error_message: str):
         message_box = QMessageBox()
         message_box.setText(f'Cannot load settings. Error: {error_message}')
-        message_box.exec()
+        message_box.open()
         self.close()
 
 
@@ -57,13 +58,8 @@ class SettingsLoadTask(QRunnable):
     @pyqtSlot()
     def run(self):
         try:
-            import time
-            time.sleep(0.5)
-            settings = Settings(
-                feed_providers=[
-                    FeedProvider('http://localhost:8001/sample.rss?delay=0.4')
-                ]
-            )
+            qsettings = QSettings('github.com/kupec', 'rss_reader')
+            settings = Settings.load(qsettings)
             self.signals.result.emit(settings)
         except Exception as exc:
             self.signals.error.emit(str(exc))
